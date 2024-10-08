@@ -1,0 +1,67 @@
+.custom-card {
+    width: 60rem; 
+  }
+  .logo-image {
+    width: 70px; 
+    height: 70px; 
+    border-radius: 20%;
+    border: 1px solid #000;
+    object-fit: cover; 
+  }
+  
+  .small-text {
+    font-size: 14px; 
+  }
+  .form-page {
+    display: none;
+  }
+  .form-page.active {
+    display: block;}
+  
+    .form-label-bold {
+  font-weight: bold;
+  }
+  
+  .input-group-text {
+  width: 160px; 
+  text-align: left;
+  }
+  
+  .step-indicator {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: lightgray;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step.active {
+    background-color: blue;
+    color: white;
+  }
+  
+  .custom-outline {
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 5px;
+  }
+  .custom-card {
+    width: 60rem; 
+  }
+  .logo-image {
+    width: 70px; 
+    height: 70px; 
+    border-radius: 20%;
+    border: 1px solid #000;
+    object-fit: cover; 
+  }
+  .small-text {
+    font-size: 14px; /* Ukuran font kecil, sesuaikan sesuai kebutuhan */
+  }

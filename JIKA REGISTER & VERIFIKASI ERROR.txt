@@ -1,0 +1,7 @@
+Jika Saat register dan Verifikasi Error lakukan hal berikut :
+
+1. Hapus Folder Vendor
+2. Hapus File composer.json dan composer.lock
+3. Install phpmailer menggunakan composer 
+4. masukan sintaks berikut di terminal "composer require phpmailer/phpmailer"
+5. Setelah Install selesai, silakan coba register lagi

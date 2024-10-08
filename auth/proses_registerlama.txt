@@ -1,0 +1,102 @@
+<?php
+session_start();
+include 'koneksi.php';
+
+if (isset($_POST['register'])) {
+    $npm = $_POST['npm'];
+    $nama = $_POST['nama'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $repassword = $_POST['repassword'];
+    $level = $_POST['level'];
+    $nidn = $_POST['nidn'];
+    $alamat = $_POST['alamat'];
+    $kota = $_POST['kota'];
+
+    // Function to check if email already exists
+    function cek_email($email, $conn) {
+        $cekemail = mysqli_real_escape_string($conn, $email);
+        $query = "SELECT * FROM user WHERE email = '$cekemail'";
+        $result = mysqli_query($conn, $query);
+        return mysqli_num_rows($result);
+    }
+
+    // Check if any input is empty
+    if (!empty($level) && !empty($nama) && !empty($email) && !empty($password) && !empty($repassword)) {
+        if ($password == $repassword) {
+            if (cek_email($email, $conn) == 0) {
+                $pass = md5($password);
+
+                // Pemilahan Query
+                if ($level == "Mahasiswa") {
+                    $query1 = "INSERT INTO user (email, password, level) VALUES ('$email', '$pass', '$level')";
+                    $query2 = "INSERT INTO mahasiswa (npm, nama, email) VALUES ('$npm', '$nama', '$email')";
+                } elseif ($level == "Dosen") {
+                    $query1 = "INSERT INTO user (email, password, level) VALUES ('$email', '$pass', '$level')";
+                    $query2 = "INSERT INTO dosen (nidn, nama, email) VALUES ('$nidn', '$nama', '$email')";
+                } elseif ($level == "Mitra") {
+                    $query1 = "INSERT INTO user (email, password, level) VALUES ('$email', '$pass', '$level')";
+                    $query2 = "INSERT INTO mitra (nama_perusahaan, email, alamat, kota) VALUES ('$nama', '$email', '$alamat', '$kota')";
+                } else {
+                    header("Location: login.php?error=level");
+                    exit();
+                }
+
+                // Eksekusi query pertama
+                if ($conn->query($query1) === TRUE) {
+                    // Jika berhasil, eksekusi query kedua
+                    if ($conn->query($query2) === TRUE) {
+                        ?>
+                        <script type="text/javascript">
+                            alert('Register berhasil !');
+                            window.location.assign('login.php');
+                        </script>
+                        <?php
+                        exit();
+                    } else {
+                        ?>
+                        <script type="text/javascript">
+                            alert('Register Gagal !');
+                            window.location.assign('login.php');
+                        </script>
+                        <?php
+                        exit();
+                    }
+                } else {
+                    ?>
+                    <script type="text/javascript">
+                        alert('Register Gagal !');
+                        window.location.assign('login.php');
+                    </script>
+                    <?php
+                    exit();
+                }
+            } else {
+                ?>
+                <script type="text/javascript">
+                    alert('Email sudah digunakan !');
+                    window.location.assign('login.php');
+                </script>
+                <?php
+                exit();
+            }
+        } else {
+            ?>
+            <script type="text/javascript">
+                alert('Harap masukan Password dan Repassword dengan benar !');
+                window.location.assign('login.php');
+            </script>
+            <?php
+            exit();
+        }
+    } else {
+        ?>
+        <script type="text/javascript">
+            alert('Harap isi semua data !');
+            window.location.assign('login.php');
+        </script>
+        <?php
+        exit();
+    }
+}
+?>
